@@ -53,7 +53,7 @@
         app:layout_constraintStart_toStartOf="@+id/money" />
 
     <TextView
-        android:id="@+id/humans"
+        android:id="@+id/textView_human"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/humans"
