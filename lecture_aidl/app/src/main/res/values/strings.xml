@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">lecuture_aidl</string>
+    <string name="result" />
+    <string name="money">合計金額</string>
+    <string name="humans">人数</string>
+    <string name="calc">割り勘する</string>
 </resources>
