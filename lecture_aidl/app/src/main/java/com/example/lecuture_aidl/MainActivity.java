@@ -3,6 +3,7 @@ package com.example.lecuture_aidl;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.app.Service;
@@ -15,11 +16,13 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     private IMyAidlInterface service;
     private EditText money;
     private EditText human ;
     private TextView result;
     private Button calc;
+
     private ServiceConnection serviceConnection =
             new ServiceConnection() {
                 @Override
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
                     service = null;
+                    Log.d("myDebug","繋げなかったよ");
                 }
             };
 
@@ -41,25 +45,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("myDebug", "Launched.");
 
         calc = (Button) findViewById(R.id.calc);
+
         calc.setOnClickListener(this);
 
         human = (EditText) findViewById(R.id.human);
         money = (EditText) findViewById(R.id.money);
         result = (TextView) findViewById(R.id.result);
 
+        Intent intent = new Intent(IMyAidlInterface.class.getName());
+        bindService(intent.setPackage("com.example.lecuture_aidl"),serviceConnection,BIND_AUTO_CREATE);
+
     }
 
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+        Log.d("myDebug","終了");
     }
+
 
     public void onClick(View view){
         Log.d("myDebug", "clicked Button.");
-        int human_number = Integer.valueOf(human.getText().toString());
-        int money_number = Integer.valueOf(money.getText().toString());
-        int wari = money_number / human_number;
-        result.setText(Integer.toString(wari));
+        try {
+            int human_number = Integer.parseInt(human.getText().toString());
+            int money_number = Integer.parseInt(money.getText().toString());
+            int w = service.warikan(human_number, money_number);
+            result.setText(Integer.toString(w));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            Log.d("myDebug","失敗");
+        }
+
 
     }
+
 }

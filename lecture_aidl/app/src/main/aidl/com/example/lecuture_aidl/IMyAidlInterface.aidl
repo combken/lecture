@@ -9,6 +9,4 @@ interface IMyAidlInterface {
      * and return values in AIDL.
      */
     int warikan(int money,int human);
-    void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat,
-            double aDouble, String aString);
 }
