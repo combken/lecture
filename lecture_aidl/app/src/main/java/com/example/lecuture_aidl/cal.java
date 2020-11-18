@@ -1,4 +1,4 @@
-package b1013251.itarch.com.aidlpractice;
+package com.example.lecuture_aidl;
 
 import android.app.Service;
 import android.content.Intent;

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         result = (TextView) findViewById(R.id.result);
 
         Intent intent = new Intent(IMyAidlInterface.class.getName());
-        bindService(intent.setPackage("com.example.lecuture_aidl"),serviceConnection,BIND_AUTO_CREATE);
+        bindService(intent.setPackage("com.example.lecture_aidl"),serviceConnection,BIND_AUTO_CREATE);
 
     }
 
@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             int human_number = Integer.parseInt(human.getText().toString());
             int money_number = Integer.parseInt(money.getText().toString());
-            int w = service.warikan(human_number, money_number);
+            Log.d("myDebug","human_number");
+            int w = service.warikan(money_number,human_number);
             result.setText(Integer.toString(w));
         } catch (RemoteException e) {
             e.printStackTrace();
